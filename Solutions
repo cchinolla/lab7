@@ -1,0 +1,28 @@
+class Solution(object):
+
+    def rob(self, nums):
+        if len(nums) == 0:
+            return 0
+        if len(nums) <= 3:
+            return max(nums)
+        robbed= 0
+        prob = 0
+        nrob = 0
+        pre_nrob = 0
+
+        for i in range(0, len(nums)):
+            robbed = pre_nrob + nums[i]
+            nrob, prob, pre_nrob = max(prob, pre_nrob), robbed, nrob
+        final = max(robbed, nrob)
+        return final
+
+    def maxProduct(self, nums):
+        curr = nums[0]
+        maxs = max(curr, 0)
+        mins = min(curr, 0)
+        for i in range(1, len(nums)):
+            number = nums[i]
+            a, b = maxs * number, mins * number
+            maxs, mins = max(a, b, max(number, 0)), min(a, b, min(number, 0))
+            curr = max(curr, maxs)
+        return curr
